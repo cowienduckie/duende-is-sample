@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using AuthServer;
 using Duende.IdentityServer.Extensions;
 using IdentityServerHost.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -17,8 +18,6 @@ namespace IdentityServerHost.Quickstart.UI
     [Route("api/[controller]")]
     public class SessionController : ControllerBase
     {
-        private const string OriginalUserNameClaimType = "switch_original_username";
-
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
@@ -37,7 +36,7 @@ namespace IdentityServerHost.Quickstart.UI
                 return Unauthorized();
             }
 
-            var originalUserName = User.FindFirstValue(OriginalUserNameClaimType) ?? currentUser.UserName;
+            var originalUserName = User.FindFirstValue(TokenUserContextClaims.OriginalUserNameSession) ?? currentUser.UserName;
             var context = await BuildSessionContextResponseAsync(currentUser.UserName, originalUserName);
             return Ok(context);
         }
@@ -67,12 +66,12 @@ namespace IdentityServerHost.Quickstart.UI
                 return NotFound($"User '{request.TargetUserName}' was not found.");
             }
 
-            var originalUserName = User.FindFirstValue(OriginalUserNameClaimType) ?? currentUser.UserName;
+            var originalUserName = User.FindFirstValue(TokenUserContextClaims.OriginalUserNameSession) ?? currentUser.UserName;
             var extraClaims = new List<Claim>();
 
             if (!string.Equals(originalUserName, targetUser.UserName, StringComparison.OrdinalIgnoreCase))
             {
-                extraClaims.Add(new Claim(OriginalUserNameClaimType, originalUserName));
+                extraClaims.Add(new Claim(TokenUserContextClaims.OriginalUserNameSession, originalUserName));
             }
 
             await _signInManager.SignOutAsync();
@@ -91,7 +90,7 @@ namespace IdentityServerHost.Quickstart.UI
                 return Unauthorized();
             }
 
-            var originalUserName = User.FindFirstValue(OriginalUserNameClaimType);
+            var originalUserName = User.FindFirstValue(TokenUserContextClaims.OriginalUserNameSession);
             if (string.IsNullOrWhiteSpace(originalUserName))
             {
                 return BadRequest("No original user context found for switch-back.");

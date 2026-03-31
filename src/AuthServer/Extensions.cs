@@ -1,5 +1,7 @@
 using AuthServer.Data;
+using AuthServer.Services;
 using Duende.IdentityServer;
+using Duende.IdentityServer.Services;
 using IdentityServerHost.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -60,6 +62,8 @@ public static class Extensions
             .AddInMemoryApiScopes(Config.ApiScopes)
             .AddInMemoryClients(Config.Clients)
             .AddAspNetIdentity<ApplicationUser>();
+
+        services.AddTransient<IProfileService, TokenUserContextProfileService>();
 
         services
             .AddAuthentication()

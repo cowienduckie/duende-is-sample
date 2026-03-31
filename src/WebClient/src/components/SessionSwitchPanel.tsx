@@ -8,7 +8,7 @@ import {
 } from "../auth/sessionSwitch";
 
 export function SessionSwitchPanel() {
-  const { isAuthenticated, isLoading, isLoggingOut, login } = useAuth();
+  const { isAuthenticated, isLoading, isLoggingOut, login, renewUser } = useAuth();
   const [context, setContext] = useState<SessionContext | null>(null);
   const [isFetching, setIsFetching] = useState(false);
   const [isSwitching, setIsSwitching] = useState(false);
@@ -69,7 +69,12 @@ export function SessionSwitchPanel() {
   const switchableUsers = useMemo(() => context?.switchableUsers ?? [], [context]);
 
   const triggerRelogin = async () => {
-    await login();
+    try {
+      await renewUser();
+    } catch {
+      // Fallback to interactive login when silent renew/refresh is unavailable.
+      await login();
+    }
   };
 
   const handleSwitch = async (targetUserName: string) => {

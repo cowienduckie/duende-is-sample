@@ -14,6 +14,16 @@ namespace AuthServer
             {
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile(),
+                new IdentityResources.Email(),
+                new IdentityResource(
+                    name: "session_context",
+                    displayName: "Session switch context",
+                    userClaims: [
+                        TokenUserContextClaims.SwitchMode,
+                        TokenUserContextClaims.OriginalSubject,
+                        TokenUserContextClaims.OriginalName,
+                        TokenUserContextClaims.OriginalEmail
+                    ]),
             };
 
         public static IEnumerable<ApiScope> ApiScopes =>
@@ -51,7 +61,7 @@ namespace AuthServer
                     PostLogoutRedirectUris = { "https://localhost:44300/signout-callback-oidc" },
 
                     AllowOfflineAccess = true,
-                    AllowedScopes = { "openid", "profile", "scope2" }
+                    AllowedScopes = { "openid", "profile", "email", "session_context", "scope2" }
                 },
 
                 // browser SPA client using authorization code flow + pkce
@@ -69,7 +79,7 @@ namespace AuthServer
                     AllowedCorsOrigins = { "http://localhost:5173" },
 
                     AllowOfflineAccess = true,
-                    AllowedScopes = { "openid", "profile", "scope1" }
+                    AllowedScopes = { "openid", "profile", "email", "session_context", "scope1" }
                 },
             };
     }

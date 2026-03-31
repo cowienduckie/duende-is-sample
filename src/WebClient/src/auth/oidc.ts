@@ -6,7 +6,7 @@ const redirectUri = import.meta.env.VITE_AUTH_REDIRECT_URI ?? "http://localhost:
 const postLogoutRedirectUri =
   import.meta.env.VITE_AUTH_POST_LOGOUT_REDIRECT_URI ??
   "http://localhost:5173/auth/logout-callback";
-const scope = import.meta.env.VITE_AUTH_SCOPE ?? "openid profile scope1";
+const scope = import.meta.env.VITE_AUTH_SCOPE ?? "openid profile email session_context scope1";
 
 const settings: UserManagerSettings = {
   authority,

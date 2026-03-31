@@ -4,6 +4,11 @@ import { SessionSwitchPanel } from "../components/SessionSwitchPanel";
 
 export function ProfilePage() {
   const { user, logout, isLoggingOut } = useAuth();
+  const profile = (user?.profile ?? {}) as Record<string, unknown>;
+  const switchMode = String(profile["switch_mode"] ?? "").toLowerCase() === "true";
+  const originalName = profile["original_name"];
+  const originalEmail = profile["original_email"];
+  const originalSub = profile["original_sub"];
 
   return (
     <main className="shell">
@@ -26,7 +31,18 @@ export function ProfilePage() {
 
         <section className="claims" aria-label="User claims">
           <h2>OIDC Claims</h2>
-          <pre>{JSON.stringify(user?.profile ?? {}, null, 2)}</pre>
+          <p>
+            Token mode: <strong>{switchMode ? "switched-session token" : "login token"}</strong>
+          </p>
+
+          {switchMode && (
+            <p>
+              Original actor: <strong>{String(originalName ?? originalSub ?? "unknown")}</strong>
+              {originalEmail ? ` (${String(originalEmail)})` : ""}
+            </p>
+          )}
+
+          <pre>{JSON.stringify(profile, null, 2)}</pre>
         </section>
 
         <SessionSwitchPanel />

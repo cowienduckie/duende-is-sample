@@ -18,6 +18,7 @@ type AuthContextValue = {
   login: () => Promise<void>;
   logout: () => Promise<void>;
   refreshUser: () => Promise<void>;
+  renewUser: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
@@ -93,6 +94,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     await userManager.signinRedirect();
   }, [isLoggingOut]);
 
+  const renewUser = useCallback(async () => {
+    const renewed = await userManager.signinSilent();
+    setUser(renewed);
+  }, []);
+
   const logout = useCallback(async () => {
     if (logoutInProgressRef.current) {
       return;
@@ -118,9 +124,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       isLoggingOut,
       login,
       logout,
-      refreshUser
+      refreshUser,
+      renewUser
     }),
-    [isLoading, isLoggingOut, login, logout, refreshUser, user]
+    [isLoading, isLoggingOut, login, logout, refreshUser, renewUser, user]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
