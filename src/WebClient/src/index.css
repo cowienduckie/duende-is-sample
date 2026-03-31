@@ -1,0 +1,38 @@
+:root {
+  --font-body: "Manrope", "Avenir Next", "Segoe UI", sans-serif;
+  --font-heading: "Space Grotesk", "Avenir Next", sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", monospace;
+  --text: #10212b;
+  --soft-text: #2f5f77;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--text);
+  background:
+    radial-gradient(800px 300px at 0% 0%, rgba(249, 115, 22, 0.22), transparent 70%),
+    radial-gradient(900px 360px at 100% 100%, rgba(14, 116, 144, 0.24), transparent 68%),
+    linear-gradient(165deg, #f7f4ed 0%, #eef7fa 62%, #e9eff6 100%);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
+  letter-spacing: -0.01em;
+}
+
+a {
+  color: #0a5f83;
+}
