@@ -16,3 +16,6 @@ docs/
 .ai-devkit.json
 
 .env
+*.db
+*.db-shm
+*.db-wal

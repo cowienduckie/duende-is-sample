@@ -29,6 +29,7 @@ SPA demo app that authenticates against the sample AuthServer with Authorization
 - Home: `/`
 - Protected page: `/profile`
 - Sign-in callback: `/auth/callback`
+- Silent renew callback: `/auth/silent-callback`
 - Sign-out callback: `/auth/logout-callback`
 
 ## Environment Variables
@@ -36,5 +37,6 @@ SPA demo app that authenticates against the sample AuthServer with Authorization
 - `VITE_AUTH_AUTHORITY`
 - `VITE_AUTH_CLIENT_ID`
 - `VITE_AUTH_REDIRECT_URI`
+- `VITE_AUTH_SILENT_REDIRECT_URI`
 - `VITE_AUTH_POST_LOGOUT_REDIRECT_URI`
 - `VITE_AUTH_SCOPE`

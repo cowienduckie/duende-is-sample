@@ -74,7 +74,7 @@ namespace AuthServer
                     RequirePkce = true,
                     RequireClientSecret = false,
 
-                    RedirectUris = { "http://localhost:5173/auth/callback" },
+                    RedirectUris = { "http://localhost:5173/auth/callback", "http://localhost:5173/auth/silent-callback" },
                     PostLogoutRedirectUris = { "http://localhost:5173/auth/logout-callback" },
                     AllowedCorsOrigins = { "http://localhost:5173" },
 

@@ -23,7 +23,6 @@ export function SessionSwitchPanel() {
     }
 
     let isMounted = true;
-    const timeoutId: ReturnType<typeof setTimeout> | null = null;
 
     const loadContext = async () => {
       setIsFetching(true);
@@ -60,9 +59,6 @@ export function SessionSwitchPanel() {
 
     return () => {
       isMounted = false;
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
     };
   }, [isAuthenticated, isLoading, isLoggingOut]);
 

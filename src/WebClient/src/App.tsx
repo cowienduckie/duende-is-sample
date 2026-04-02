@@ -4,6 +4,7 @@ import { HomePage } from "./pages/HomePage.tsx";
 import { ProfilePage } from "./pages/ProfilePage.tsx";
 import { AuthCallbackPage } from "./pages/AuthCallbackPage.tsx";
 import { LogoutCallbackPage } from "./pages/LogoutCallbackPage.tsx";
+import { SilentCallbackPage } from "./pages/SilentCallbackPage.tsx";
 import "./App.css";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         }
       />
       <Route path="/auth/callback" element={<AuthCallbackPage />} />
+      <Route path="/auth/silent-callback" element={<SilentCallbackPage />} />
       <Route path="/auth/logout-callback" element={<LogoutCallbackPage />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

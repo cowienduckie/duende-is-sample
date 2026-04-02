@@ -33,8 +33,7 @@ public static class Extensions
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials()
-                    .WithOrigins(["http://localhost:5173", "https://localhost:5173"])
-                    .SetIsOriginAllowed(_ => true);
+                    .WithOrigins(["http://localhost:5173", "https://localhost:5173"]);
             });
         });
 
@@ -84,7 +83,7 @@ public static class Extensions
         {
             options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
 
-            options.KnownIPNetworks.Clear();
+            options.KnownNetworks.Clear();
             options.KnownProxies.Clear();
         });
 
