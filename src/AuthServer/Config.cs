@@ -79,6 +79,7 @@ namespace AuthServer
                     AllowedCorsOrigins = { "http://localhost:5173" },
 
                     AllowOfflineAccess = true,
+                    AccessTokenLifetime = 120,
                     AllowedScopes = { "openid", "profile", "email", "session_context", "scope1" }
                 },
             };
